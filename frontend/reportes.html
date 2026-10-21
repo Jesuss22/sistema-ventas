@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes | Sistema de Ventas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="lateral">
+    <div class="marca">
+      <div class="marca-icono">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <span>Sistema de Ventas</span>
+    </div>
+
+    <div class="seccion">Menú</div>
+    <nav>
+      <a href="productos.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <span>Productos</span>
+      </a>
+      <a href="clientes.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Clientes</span>
+      </a>
+      <a href="ventas.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span>Punto de venta</span>
+      </a>
+      <a href="reportes.html" class="activo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span>Reportes</span>
+      </a>
+    </nav>
+
+    <div class="pie">
+      <div class="perfil">
+        <div class="avatar" id="avatarUsuario">A</div>
+        <div>
+          <div class="nombre" id="nombreUsuario">Usuario</div>
+          <div class="rol" id="rolUsuario">admin</div>
+        </div>
+      </div>
+      <button class="btn-salir" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="principal">
+    <div class="cabecera">
+      <div>
+        <h1>Reportes</h1>
+        <p>Resumen de ventas y alertas de inventario.</p>
+      </div>
+      <select id="periodo" class="selector-periodo">
+        <option value="1">Hoy</option>
+        <option value="7">Últimos 7 días</option>
+        <option value="30">Últimos 30 días</option>
+      </select>
+    </div>
+
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-icono azul">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        </div>
+        <div><div class="etiqueta">Ventas</div><div class="valor" id="kpiVentas">0</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icono verde">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div><div class="etiqueta">Total vendido</div><div class="valor" id="kpiTotal">S/ 0.00</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icono azul">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        </div>
+        <div><div class="etiqueta">Ticket promedio</div><div class="valor" id="kpiPromedio">S/ 0.00</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icono rojo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        </div>
+        <div><div class="etiqueta">Poco stock</div><div class="valor" id="kpiBajo">0</div></div>
+      </div>
+    </section>
+
+    <div class="reportes-grid">
+      <section class="tarjeta">
+        <div class="herramientas"><h3>Productos más vendidos</h3></div>
+        <div class="grafico" id="grafico"></div>
+      </section>
+
+      <section class="tarjeta">
+        <div class="herramientas"><h3>Reponer pronto</h3></div>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th>Producto</th><th>Stock</th><th>Mínimo</th></tr></thead>
+            <tbody id="tablaPocoStock"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <section class="tarjeta" style="margin-top:20px">
+      <div class="herramientas"><h3>Ventas recientes</h3></div>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>N°</th><th>Fecha</th><th>Cliente</th><th>Vendedor</th><th>Total</th></tr></thead>
+          <tbody id="tablaRecientes"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/reportes.js"></script>
+</body>
+</html> 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punto de venta | Sistema de Ventas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="lateral">
+    <div class="marca">
+      <div class="marca-icono">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <span>Sistema de Ventas</span>
+    </div>
+
+    <div class="seccion">Menú</div>
+    <nav>
+      <a href="productos.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <span>Productos</span>
+      </a>
+      <a href="clientes.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Clientes</span>
+      </a>
+      <a href="ventas.html" class="activo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span>Punto de venta</span>
+      </a>
+      <a href="reportes.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span>Reportes</span>
+      </a>
+    </nav>
+
+    <div class="pie">
+      <div class="perfil">
+        <div class="avatar" id="avatarUsuario">A</div>
+        <div>
+          <div class="nombre" id="nombreUsuario">Usuario</div>
+          <div class="rol" id="rolUsuario">admin</div>
+        </div>
+      </div>
+      <button class="btn-salir" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="principal">
+    <div class="cabecera">
+      <div>
+        <h1>Punto de venta</h1>
+        <p>Busca productos, arma el carrito y cobra.</p>
+      </div>
+    </div>
+
+    <div class="pos">
+      <!-- Catálogo -->
+      <section class="tarjeta">
+        <div class="herramientas">
+          <div class="buscador-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="buscador" placeholder="Buscar producto o código..." autofocus>
+          </div>
+        </div>
+        <div class="catalogo" id="catalogo"></div>
+      </section>
+
+      <!-- Carrito -->
+      <aside class="tarjeta carrito">
+        <div class="carrito-cab">
+          <h3>Venta actual</h3>
+          <button class="enlace" id="btnVaciar">Vaciar</button>
+        </div>
+
+        <label>Cliente (opcional)</label>
+        <select id="cliente"><option value="">Cliente general</option></select>
+
+        <div class="carrito-items" id="carritoItems"></div>
+
+        <div class="total-fila"><span>Total</span><strong id="total">S/ 0.00</strong></div>
+        <button class="btn-primario btn-block" id="btnCobrar" disabled>Cobrar</button>
+        <p id="mensajeVenta" class="error"></p>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/api.js"></script>
+<script src="js/ventas.js"></script>
+</body>
+</html> 

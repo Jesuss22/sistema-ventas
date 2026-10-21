@@ -47,3 +47,32 @@ exports.pocoStock = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Resumen por periodo: ?dias=1 (hoy), 7, 30
+exports.resumen = async (req, res) => {
+  try {
+    const dias = Math.min(Math.max(parseInt(req.query.dias) || 1, 1), 365);
+
+    const [[resumen]] = await pool.query(
+      `SELECT COUNT(*) AS cantidad_ventas,
+              COALESCE(SUM(total), 0) AS total_vendido,
+              COALESCE(AVG(total), 0) AS ticket_promedio
+       FROM ventas
+       WHERE fecha >= DATE_SUB(CURDATE(), INTERVAL ? DAY) + INTERVAL 1 DAY`,
+      [dias]
+    );
+
+    const [recientes] = await pool.query(
+      `SELECT v.id, v.total, v.fecha, c.nombre AS cliente, u.nombre AS vendedor
+       FROM ventas v
+       LEFT JOIN clientes c ON v.cliente_id = c.id
+       JOIN usuarios u ON v.usuario_id = u.id
+       ORDER BY v.fecha DESC
+       LIMIT 8`
+    );
+
+    res.json({ ...resumen, recientes });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

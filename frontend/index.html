@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión | Sistema de Ventas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="login-page">
+    <section class="login-lado">
+      <div class="marca">
+        <div class="marca-icono">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        Sistema de Ventas
+      </div>
+
+      <div>
+        <h2>Controla tu negocio desde un solo lugar</h2>
+        <p>Inventario, ventas y reportes en tiempo real para bodegas, ferreterías, boticas y tiendas de ropa.</p>
+        <ul>
+          <li>Control de stock automático</li>
+          <li>Punto de venta rápido</li>
+          <li>Reportes de ventas y productos</li>
+        </ul>
+      </div>
+
+      <small>© 2026 Sistema de Ventas e Inventario</small>
+    </section>
+
+    <section class="login-form-lado">
+      <main class="login-card">
+        <h1>Bienvenido</h1>
+        <p class="subtitulo">Inicia sesión para continuar</p>
+
+        <form id="formLogin">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" placeholder="admin@tienda.com" required>
+
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+
+          <button type="submit" class="btn-primario btn-block">Entrar</button>
+          <p id="mensaje" class="error"></p>
+        </form>
+      </main>
+    </section>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos | Sistema de Ventas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="lateral">
+    <div class="marca">
+      <div class="marca-icono">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <span>Sistema de Ventas</span>
+    </div>
+
+    <div class="seccion">Menú</div>
+    <nav>
+      <a href="productos.html" class="activo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <span>Productos</span>
+      </a>
+      <a href="clientes.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Clientes</span>
+      </a>
+      <a href="ventas.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span>Punto de venta</span>
+      </a>
+      <a href="reportes.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span>Reportes</span>
+      </a>
+    </nav>
+
+    <div class="pie">
+      <div class="perfil">
+        <div class="avatar" id="avatarUsuario">A</div>
+        <div>
+          <div class="nombre" id="nombreUsuario">Usuario</div>
+          <div class="rol" id="rolUsuario">admin</div>
+        </div>
+      </div>
+      <button class="btn-salir" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="principal">
+    <div class="cabecera">
+      <div>
+        <h1>Productos</h1>
+        <p>Administra tu inventario y controla el stock.</p>
+      </div>
+      <button class="btn-primario" id="btnNuevo">+ Nuevo producto</button>
+    </div>
+
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-icono azul">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+        </div>
+        <div><div class="etiqueta">Productos activos</div><div class="valor" id="kpiTotal">0</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icono rojo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        </div>
+        <div><div class="etiqueta">Con stock bajo</div><div class="valor" id="kpiBajo">0</div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icono verde">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div><div class="etiqueta">Valor del inventario</div><div class="valor" id="kpiValor">S/ 0.00</div></div>
+      </div>
+    </section>
+
+    <section class="tarjeta">
+      <div class="herramientas">
+        <div class="buscador-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="buscador" placeholder="Buscar por nombre o código...">
+        </div>
+      </div>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>P. compra</th>
+              <th>P. venta</th>
+              <th>Stock</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaProductos"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Ventana crear / editar -->
+<div class="modal" id="modal">
+  <div class="modal-contenido">
+    <h3 id="modalTitulo">Nuevo producto</h3>
+    <p class="ayuda">Los campos con * son obligatorios.</p>
+    <form id="formProducto">
+      <label>Código</label>
+      <input type="text" id="codigo" placeholder="Ej: 001">
+
+      <label>Nombre *</label>
+      <input type="text" id="nombre" required placeholder="Ej: Arroz 1kg">
+
+      <div class="fila">
+        <div>
+          <label>Precio compra</label>
+          <input type="number" id="precio_compra" step="0.01" min="0" value="0">
+        </div>
+        <div>
+          <label>Precio venta *</label>
+          <input type="number" id="precio_venta" step="0.01" min="0" required>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div>
+          <label>Stock</label>
+          <input type="number" id="stock" min="0" value="0">
+        </div>
+        <div>
+          <label>Stock mínimo</label>
+          <input type="number" id="stock_minimo" min="0" value="5">
+        </div>
+      </div>
+
+      <p id="mensajeForm" class="error"></p>
+      <div class="botones-modal">
+        <button type="button" class="btn-secundario" id="btnCancelar">Cancelar</button>
+        <button type="submit" class="btn-primario">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/api.js"></script>
+<script src="js/productos.js"></script>
+</body>
+</html>
