@@ -3,10 +3,14 @@ const pool = require('../db');
 // Registrar una venta
 // Body: { "cliente_id": 1, "items": [ { "producto_id": 1, "cantidad": 2 }, ... ] }
 exports.crear = async (req, res) => {
-  const { cliente_id, items } = req.body;
+  const { cliente_id, items } = req.body || {};
 
   if (!Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: 'La venta debe tener al menos un producto' });
+  }
+  if (cliente_id !== undefined && cliente_id !== null
+    && (!Number.isInteger(cliente_id) || cliente_id <= 0)) {
+    return res.status(400).json({ error: 'El cliente es inválido' });
   }
 
   const conn = await pool.getConnection();
@@ -17,10 +21,11 @@ exports.crear = async (req, res) => {
     const detalle = [];
 
     for (const item of items) {
-      const cantidad = Number(item.cantidad);
-      if (!item.producto_id || !Number.isInteger(cantidad) || cantidad <= 0) {
+      if (!item || !Number.isInteger(item.producto_id) || item.producto_id <= 0
+        || !Number.isInteger(item.cantidad) || item.cantidad <= 0) {
         throw { status: 400, message: 'Producto o cantidad inválidos' };
       }
+      const cantidad = item.cantidad;
 
       // FOR UPDATE bloquea la fila para que dos ventas simultáneas no descuenten mal el stock
       const [rows] = await conn.query(

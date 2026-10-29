@@ -172,6 +172,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .producto-nombre { font-weight: 600; }
 .producto-codigo { color: var(--texto-suave); font-size: 12px; }
 .dinero { font-variant-numeric: tabular-nums; }
+.solo-lectura { color: var(--texto-suave); font-size: 13px; font-weight: 500; }
 
 .etiqueta-estado { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
 .etiqueta-estado::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -282,4 +283,3 @@ tbody tr:last-child td { border-bottom: 0; }
 .barra-info { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; font-size: 13px; }
 .barra-fondo { background: #eef2ff; border-radius: 999px; height: 10px; overflow: hidden; }
 .barra-relleno { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #6366f1, #4f46e5); transition: width .5s ease; }
-

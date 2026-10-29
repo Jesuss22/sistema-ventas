@@ -4,11 +4,13 @@ if (!obtenerToken()) {
 }
 
 const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+const esAdmin = usuario.rol === 'admin';
 document.getElementById('nombreUsuario').textContent = usuario.nombre || 'Usuario';
 document.getElementById('rolUsuario').textContent = usuario.rol || '';
 document.getElementById('avatarUsuario').textContent = (usuario.nombre || 'U').charAt(0).toUpperCase();
 
 const tabla = document.getElementById('tablaProductos');
+const btnNuevo = document.getElementById('btnNuevo');
 const modal = document.getElementById('modal');
 const form = document.getElementById('formProducto');
 const mensajeForm = document.getElementById('mensajeForm');
@@ -17,6 +19,14 @@ const toast = document.getElementById('toast');
 
 let productos = [];
 let editandoId = null;
+
+if (!esAdmin) {
+  btnNuevo.hidden = true;
+  const modoLectura = document.createElement('span');
+  modoLectura.className = 'solo-lectura';
+  modoLectura.textContent = 'Solo lectura';
+  btnNuevo.parentElement.appendChild(modoLectura);
+}
 
 const ICONO_EDITAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>';
 const ICONO_BORRAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
@@ -67,6 +77,13 @@ function pintarTabla(lista) {
     return;
   }
 
+  function accionesProducto(p) {
+    return esAdmin
+      ? `<button class="btn-icono" title="Editar" onclick="editar(${p.id})">${ICONO_EDITAR}</button>
+         <button class="btn-icono peligro" title="Desactivar" onclick="desactivar(${p.id})">${ICONO_BORRAR}</button>`
+      : '<span class="solo-lectura">Solo lectura</span>';
+  }
+
   tabla.innerHTML = lista.map((p) => `
     <tr>
       <td>
@@ -84,8 +101,7 @@ function pintarTabla(lista) {
       <td>${estadoProducto(p)}</td>
       <td>
         <div class="acciones">
-          <button class="btn-icono" title="Editar" onclick="editar(${p.id})">${ICONO_EDITAR}</button>
-          <button class="btn-icono peligro" title="Desactivar" onclick="desactivar(${p.id})">${ICONO_BORRAR}</button>
+          ${accionesProducto(p)}
         </div>
       </td>
     </tr>`).join('');
@@ -100,7 +116,8 @@ buscador.addEventListener('input', () => {
 });
 
 // Abrir ventana para crear
-document.getElementById('btnNuevo').addEventListener('click', () => {
+btnNuevo.addEventListener('click', () => {
+  if (!esAdmin) return;
   editandoId = null;
   form.reset();
   document.getElementById('stock_minimo').value = 5;
@@ -114,6 +131,7 @@ modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList
 
 // Abrir ventana para editar
 function editar(id) {
+  if (!esAdmin) return;
   const p = productos.find((x) => x.id === id);
   editandoId = id;
   document.getElementById('modalTitulo').textContent = 'Editar producto';
@@ -130,6 +148,7 @@ function editar(id) {
 // Guardar (crear o editar)
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (!esAdmin) return;
   mensajeForm.textContent = '';
 
   const datos = {
@@ -157,6 +176,7 @@ form.addEventListener('submit', async (e) => {
 });
 
 async function desactivar(id) {
+  if (!esAdmin) return;
   if (!confirm('¿Desactivar este producto?')) return;
   try {
     await api('/productos/' + id, { method: 'DELETE' });
