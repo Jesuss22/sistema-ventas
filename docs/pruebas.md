@@ -9,7 +9,7 @@
 
 La semilla carga 12 productos, 8 clientes y 5 ventas, y es idempotente.
 
-Para una instalación demo local puede usarse `admin@tienda.com` con `Demo1234!`; cambia esta contraseña antes de publicar el sistema.
+Para una instalación demo local puede usarse `admin@tienda.com` con `Admin1234`; cambia esta contraseña antes de publicar el sistema.
 
 ## Flujo funcional
 
