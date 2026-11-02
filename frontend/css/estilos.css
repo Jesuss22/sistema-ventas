@@ -121,6 +121,7 @@ button { font-family: inherit; cursor: pointer; border: 0; }
 }
 .perfil .nombre { color: #fff; font-weight: 600; font-size: 13px; line-height: 1.2; }
 .perfil .rol { font-size: 12px; color: #94a3b8; text-transform: capitalize; }
+.perfil .cuenta-enlace { color: #a5b4fc; font-size: 11px; margin-top: 2px; }
 .btn-salir {
   width: 100%; padding: 9px; border-radius: 10px;
   background: #1e293b; color: #e2e8f0; font-weight: 500; font-size: 13px;
