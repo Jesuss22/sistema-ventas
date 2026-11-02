@@ -16,6 +16,7 @@ const limitarLogin = rateLimit({
 router.post('/login', limitarLogin, auth.login);
 router.get('/perfil', verificarToken, auth.obtenerPerfil);
 router.put('/perfil', verificarToken, auth.actualizarPerfil);
+router.get('/usuarios', verificarToken, soloAdmin, auth.listar);
 router.post('/registrar', verificarToken, soloAdmin, auth.registrar);
 
 module.exports = router;

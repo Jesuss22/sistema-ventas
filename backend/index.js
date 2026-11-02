@@ -48,12 +48,16 @@ const productosRoutes = require('./routes/productos.routes');
 const clientesRoutes = require('./routes/clientes.routes');
 const ventasRoutes = require('./routes/ventas.routes');
 const reportesRoutes = require('./routes/reportes.routes');
+const proveedoresRoutes = require('./routes/proveedores.routes');
+const cajaRoutes = require('./routes/caja.routes');
 
 app.use('/api/auth', authRoutes);                             // libre (aquí se obtiene el token)
 app.use('/api/productos', verificarToken, productosRoutes);   // protegida
 app.use('/api/clientes', verificarToken, clientesRoutes);     // protegida
 app.use('/api/ventas', verificarToken, ventasRoutes);         // protegida
 app.use('/api/reportes', verificarToken, reportesRoutes);     // protegida
+app.use('/api/proveedores', verificarToken, proveedoresRoutes); // protegida
+app.use('/api/caja', verificarToken, cajaRoutes);             // protegida
 
 // Evita que una ruta API inexistente reciba el index.html del frontend.
 app.use('/api', (req, res) => {

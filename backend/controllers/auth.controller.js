@@ -28,6 +28,17 @@ exports.registrar = async (req, res) => {
   }
 };
 
+exports.listar = async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      'SELECT id, nombre, email, rol, creado_en FROM usuarios ORDER BY nombre'
+    );
+    res.json(rows);
+  } catch (error) {
+    responderError(res, error, 'No se pudieron listar los usuarios');
+  }
+};
+
 // Iniciar sesión
 exports.login = async (req, res) => {
   try {
