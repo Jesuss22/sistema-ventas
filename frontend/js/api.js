@@ -20,14 +20,27 @@ function actualizarUsuario(usuario) {
 
 // Hace peticiones a la API enviando el token automáticamente
 async function api(ruta, opciones = {}) {
-  const respuesta = await fetch(API_URL + ruta, {
-    ...opciones,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(obtenerToken() ? { Authorization: 'Bearer ' + obtenerToken() } : {}),
-      ...(opciones.headers || {}),
-    },
-  });
+  let respuesta;
+  try {
+    respuesta = await fetch(API_URL + ruta, {
+      ...opciones,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(obtenerToken() ? { Authorization: 'Bearer ' + obtenerToken() } : {}),
+        ...(opciones.headers || {}),
+      },
+    });
+  } catch (error) {
+    throw new Error('No se pudo conectar con el backend. Verifica que esté ejecutándose en http://localhost:3000.');
+  }
+
+  const tipoContenido = respuesta.headers.get('content-type') || '';
+  if (!tipoContenido.includes('application/json')) {
+    throw new Error(
+      `La API devolvió ${respuesta.status} ${respuesta.statusText} en ${API_URL + ruta}. ` +
+      'Verifica que el frontend se esté ejecutando desde el servidor backend y que la URL de la API sea correcta.'
+    );
+  }
 
   const datos = await respuesta.json();
 

@@ -1,4 +1,5 @@
 const pool = require('../db');
+const { responderError } = require('../utils/error-response');
 
 function esEnteroNoNegativo(valor) {
   return Number.isInteger(valor) && valor >= 0;
@@ -41,7 +42,7 @@ exports.listar = async (req, res) => {
     );
     res.json(rows);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudieron listar los productos');
   }
 };
 
@@ -57,7 +58,7 @@ exports.obtener = async (req, res) => {
     }
     res.json(rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener el producto');
   }
 };
 
@@ -97,7 +98,7 @@ exports.crear = async (req, res) => {
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(400).json({ error: 'Ya existe un producto con ese código' });
     }
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo crear el producto');
   }
 };
 
@@ -139,7 +140,7 @@ exports.actualizar = async (req, res) => {
     }
     res.json({ mensaje: 'Producto actualizado' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo actualizar el producto');
   }
 };
 
@@ -155,6 +156,6 @@ exports.desactivar = async (req, res) => {
     }
     res.json({ mensaje: 'Producto desactivado' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo desactivar el producto');
   }
 };

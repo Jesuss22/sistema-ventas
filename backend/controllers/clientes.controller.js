@@ -1,4 +1,5 @@
 const pool = require('../db');
+const { responderError } = require('../utils/error-response');
 
 // Listar clientes
 exports.listar = async (req, res) => {
@@ -6,7 +7,7 @@ exports.listar = async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM clientes ORDER BY nombre');
     res.json(rows);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudieron listar los clientes');
   }
 };
 
@@ -19,7 +20,7 @@ exports.obtener = async (req, res) => {
     }
     res.json(rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener el cliente');
   }
 };
 
@@ -38,7 +39,7 @@ exports.crear = async (req, res) => {
     );
     res.status(201).json({ id: result.insertId, mensaje: 'Cliente creado' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo crear el cliente');
   }
 };
 
@@ -60,6 +61,6 @@ exports.actualizar = async (req, res) => {
     }
     res.json({ mensaje: 'Cliente actualizado' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo actualizar el cliente');
   }
 };

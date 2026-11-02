@@ -1,4 +1,5 @@
 const pool = require('../db');
+const { responderError } = require('../utils/error-response');
 
 // Registrar una venta
 // Body: { "cliente_id": 1, "items": [ { "producto_id": 1, "cantidad": 2 }, ... ] }
@@ -66,7 +67,10 @@ exports.crear = async (req, res) => {
     res.status(201).json({ id: venta.insertId, total, mensaje: 'Venta registrada' });
   } catch (error) {
     await conn.rollback();
-    res.status(error.status || 500).json({ error: error.message });
+    if (error.status) {
+      return res.status(error.status).json({ error: error.message });
+    }
+    responderError(res, error, 'No se pudo registrar la venta');
   } finally {
     conn.release();
   }
@@ -84,7 +88,7 @@ exports.listar = async (req, res) => {
     );
     res.json(rows);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudieron listar las ventas');
   }
 };
 
@@ -111,6 +115,6 @@ exports.obtener = async (req, res) => {
     );
     res.json({ ...ventas[0], items });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener la venta');
   }
 };

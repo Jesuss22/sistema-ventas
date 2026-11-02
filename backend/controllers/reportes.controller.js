@@ -1,4 +1,5 @@
 const pool = require('../db');
+const { responderError } = require('../utils/error-response');
 
 // Ventas del día (cantidad de ventas y total vendido hoy)
 exports.ventasHoy = async (req, res) => {
@@ -10,7 +11,7 @@ exports.ventasHoy = async (req, res) => {
     );
     res.json(rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener el resumen del día');
   }
 };
 
@@ -29,7 +30,7 @@ exports.masVendidos = async (req, res) => {
     );
     res.json(rows);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudieron obtener los productos más vendidos');
   }
 };
 
@@ -44,7 +45,7 @@ exports.pocoStock = async (req, res) => {
     );
     res.json(rows);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener el inventario bajo');
   }
 };
 
@@ -73,6 +74,6 @@ exports.resumen = async (req, res) => {
 
     res.json({ ...resumen, recientes });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener el resumen del periodo');
   }
 };

@@ -1,6 +1,7 @@
 const pool = require('../db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { responderError } = require('../utils/error-response');
 
 // Registrar usuario
 exports.registrar = async (req, res) => {
@@ -23,7 +24,7 @@ exports.registrar = async (req, res) => {
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(400).json({ error: 'Ese email ya está registrado' });
     }
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo registrar el usuario');
   }
 };
 
@@ -58,7 +59,7 @@ exports.login = async (req, res) => {
       usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email, rol: usuario.rol },
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo iniciar sesión');
   }
 };
 
@@ -75,7 +76,7 @@ exports.obtenerPerfil = async (req, res) => {
 
     res.json(rows[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo obtener el perfil');
   }
 };
 
@@ -131,6 +132,6 @@ exports.actualizarPerfil = async (req, res) => {
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(400).json({ error: 'Ese email ya está registrado' });
     }
-    res.status(500).json({ error: error.message });
+    responderError(res, error, 'No se pudo actualizar el perfil');
   }
 };
