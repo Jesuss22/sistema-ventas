@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 
 function guardarSesion(token, usuario) {
   localStorage.setItem('token', token);
@@ -12,6 +12,10 @@ function obtenerToken() {
 function cerrarSesion() {
   localStorage.clear();
   window.location.href = 'index.html';
+}
+
+function actualizarUsuario(usuario) {
+  localStorage.setItem('usuario', JSON.stringify(usuario));
 }
 
 // Hace peticiones a la API enviando el token automáticamente

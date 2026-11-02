@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const pool = require('./db');
@@ -8,9 +9,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ruta de prueba
+const frontendPath = path.join(__dirname, '..', 'frontend');
+app.use(express.static(frontendPath));
+
 app.get('/', (req, res) => {
-  res.json({ mensaje: 'API del sistema de ventas funcionando' });
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // Probar conexión a la base de datos

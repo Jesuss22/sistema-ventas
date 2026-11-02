@@ -111,6 +111,8 @@ button { font-family: inherit; cursor: pointer; border: 0; }
 
 .lateral .pie { margin-top: auto; border-top: 1px solid #1e293b; padding-top: 16px; }
 .perfil { display: flex; align-items: center; gap: 10px; padding: 0 6px 12px; }
+.enlace-perfil { text-decoration: none; cursor: pointer; border-radius: 10px; padding-top: 6px; transition: background .15s; }
+.enlace-perfil:hover { background: #1e293b; }
 .avatar {
   width: 36px; height: 36px; border-radius: 50%;
   background: linear-gradient(135deg, #6366f1, #a855f7);
@@ -123,6 +125,28 @@ button { font-family: inherit; cursor: pointer; border: 0; }
   background: #1e293b; color: #e2e8f0; font-weight: 500; font-size: 13px;
 }
 .btn-salir:hover { background: #334155; }
+
+.cuenta-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr); gap: 20px; align-items: start; }
+.cuenta-tarjeta { padding: 24px; }
+.cuenta-identidad { display: flex; align-items: center; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--borde); }
+.cuenta-identidad .avatar { width: 64px; height: 64px; font-size: 24px; }
+.cuenta-identidad h2 { font-size: 20px; }
+.cuenta-identidad p { color: var(--texto-suave); }
+.cuenta-seccion { margin-top: 22px; }
+.cuenta-seccion h3 { font-size: 16px; margin-bottom: 4px; }
+.cuenta-ayuda { color: var(--texto-suave); font-size: 13px; margin-bottom: 14px; }
+.cuenta-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.cuenta-form label { margin-top: 12px; }
+.cuenta-form .campo-completo { grid-column: 1 / -1; }
+.cuenta-acciones { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.cuenta-mensaje { min-height: 20px; font-size: 13px; margin-top: 12px; }
+.cuenta-mensaje.exito { color: var(--exito); }
+.cuenta-mensaje.error { color: var(--peligro); }
+.cuenta-lista { list-style: none; display: grid; gap: 14px; margin-top: 16px; }
+.cuenta-lista li { display: flex; gap: 10px; align-items: flex-start; color: var(--texto-suave); font-size: 13px; }
+.cuenta-lista strong { display: block; color: var(--texto); font-size: 14px; }
+@media (max-width: 900px) { .cuenta-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .cuenta-form { grid-template-columns: 1fr; } .cuenta-form .campo-completo { grid-column: auto; } }
 
 .principal { padding: 28px 32px; min-width: 0; }
 .cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }

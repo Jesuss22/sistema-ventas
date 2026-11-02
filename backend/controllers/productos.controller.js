@@ -4,6 +4,10 @@ function esEnteroNoNegativo(valor) {
   return Number.isInteger(valor) && valor >= 0;
 }
 
+function esNumeroNoNegativo(valor) {
+  return typeof valor === 'number' && Number.isFinite(valor) && valor >= 0;
+}
+
 function validarProducto(datos) {
   const { nombre, precio_compra, precio_venta, stock, stock_minimo } = datos;
 
@@ -13,8 +17,8 @@ function validarProducto(datos) {
   if (typeof precio_venta !== 'number' || !Number.isFinite(precio_venta) || precio_venta <= 0) {
     return 'El precio de venta debe ser un número mayor que 0';
   }
-  if (!esEnteroNoNegativo(precio_compra)) {
-    return 'El precio de compra debe ser un entero mayor o igual que 0';
+  if (!esNumeroNoNegativo(precio_compra)) {
+    return 'El precio de compra debe ser un número mayor o igual que 0';
   }
   if (!esEnteroNoNegativo(stock)) {
     return 'El stock debe ser un entero mayor o igual que 0';
