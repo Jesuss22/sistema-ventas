@@ -106,6 +106,7 @@ button { font-family: inherit; cursor: pointer; border: 0; }
   color: #cbd5e1; text-decoration: none; font-weight: 500; transition: all .15s;
 }
 .lateral nav a svg { width: 19px; height: 19px; flex-shrink: 0; }
+.menu-icono { width: 19px; display: inline-grid; place-items: center; flex-shrink: 0; font-size: 17px; }
 .lateral nav a:hover { background: #1e293b; color: #fff; }
 .lateral nav a.activo { background: var(--primario); color: #fff; box-shadow: 0 4px 12px rgba(79,70,229,.35); }
 
@@ -152,6 +153,16 @@ button { font-family: inherit; cursor: pointer; border: 0; }
 .cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
 .cabecera h1 { font-size: 24px; letter-spacing: -.02em; }
 .cabecera p { color: var(--texto-suave); margin-top: 2px; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; align-items: start; }
+.fila-dashboard { display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--borde); }
+.fila-dashboard:last-child { border-bottom: 0; }
+.ranking { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--primario-suave); color: var(--primario); font-weight: 700; font-size: 12px; }
+.fila-dashboard strong { color: var(--texto-suave); font-size: 13px; }
+.texto-vacio { color: var(--texto-suave); padding: 20px; }
+.estado-proximamente { padding: 24px; }
+.estado-proximamente h2 { font-size: 18px; margin-bottom: 8px; }
+.estado-proximamente p { color: var(--texto-suave); }
+@media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Tarjetas de resumen ---------- */
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 24px; }

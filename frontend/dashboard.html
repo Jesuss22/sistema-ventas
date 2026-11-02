@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | Sistema de Ventas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="app">
+  <aside class="lateral">
+    <div class="marca"><div class="marca-icono">▣</div><span>Sistema de Ventas</span></div>
+    <div class="seccion">Gestión</div>
+    <nav></nav>
+    <div class="pie">
+      <a class="perfil enlace-perfil" href="cuenta.html">
+        <div class="avatar" id="avatarUsuario">U</div>
+        <div><div class="nombre" id="nombreUsuario">Usuario</div><div class="rol" id="rolUsuario">usuario</div></div>
+      </a>
+      <button class="btn-salir" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </aside>
+  <main class="principal">
+    <div class="cabecera">
+      <div><h1>Dashboard</h1><p>Resumen general de tu negocio.</p></div>
+      <a class="btn-primario" href="ventas.html">+ Nueva venta</a>
+    </div>
+    <section class="kpis">
+      <div class="kpi"><div class="kpi-icono azul">S/</div><div><div class="etiqueta">Ventas del periodo</div><div class="valor" id="dashboardTotal">S/ 0.00</div></div></div>
+      <div class="kpi"><div class="kpi-icono verde">#</div><div><div class="etiqueta">Cantidad de ventas</div><div class="valor" id="dashboardVentas">0</div></div></div>
+      <div class="kpi"><div class="kpi-icono azul">↗</div><div><div class="etiqueta">Ticket promedio</div><div class="valor" id="dashboardPromedio">S/ 0.00</div></div></div>
+      <div class="kpi"><div class="kpi-icono rojo">!</div><div><div class="etiqueta">Productos por reponer</div><div class="valor" id="dashboardStock">0</div></div></div>
+    </section>
+    <div class="dashboard-grid">
+      <section class="tarjeta">
+        <div class="herramientas"><h3>Productos más vendidos</h3></div>
+        <div id="dashboardTop" class="lista-dashboard"><p class="texto-vacio">Cargando...</p></div>
+      </section>
+      <section class="tarjeta">
+        <div class="herramientas"><h3>Ventas recientes</h3></div>
+        <div class="tabla-wrap"><table><thead><tr><th>N°</th><th>Cliente</th><th>Total</th></tr></thead><tbody id="dashboardRecientes"></tbody></table></div>
+      </section>
+    </div>
+    <p id="dashboardError" class="error"></p>
+  </main>
+</div>
+<script src="js/api.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

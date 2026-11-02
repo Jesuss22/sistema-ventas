@@ -14,6 +14,18 @@ Aplicación web de inventario, clientes, punto de venta y reportes con frontend 
 
 El sistema queda disponible en `http://localhost:3000`. Las pruebas manuales y credenciales de demostración se documentan en [`docs/pruebas.md`](./docs/pruebas.md).
 
+## Módulos de gestión
+
+El menú incluye ahora Dashboard de Inicio, Productos, Clientes, Punto de venta,
+Proveedores / Compras, Caja, Reportes y Usuarios. El menú se genera desde
+[`frontend/js/menu.js`](./frontend/js/menu.js), por lo que las pantallas
+comparten navegación y estado activo sin duplicar esa lógica.
+
+El esquema incorpora `proveedores`, `compras`, `detalle_compra`, `cajas` y
+`movimientos_caja`. Las pantallas iniciales de proveedores, caja y usuarios
+están preparadas como base visual; sus endpoints CRUD pueden implementarse
+sobre esas tablas sin alterar ventas ni inventario.
+
 ## Capturas
 
 - [Productos](./capturas/productos.png)

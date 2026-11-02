@@ -60,3 +60,61 @@ CREATE TABLE IF NOT EXISTS detalle_venta (
   CONSTRAINT fk_detalle_venta FOREIGN KEY (venta_id) REFERENCES ventas(id) ON DELETE CASCADE,
   CONSTRAINT fk_detalle_producto FOREIGN KEY (producto_id) REFERENCES productos(id)
 );
+
+CREATE TABLE IF NOT EXISTS proveedores (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(160) NOT NULL,
+  documento VARCHAR(20) UNIQUE,
+  telefono VARCHAR(30),
+  email VARCHAR(160),
+  direccion VARCHAR(200),
+  activo TINYINT(1) NOT NULL DEFAULT 1,
+  creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS compras (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  proveedor_id INT NOT NULL,
+  usuario_id INT NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  estado ENUM('registrada', 'anulada') NOT NULL DEFAULT 'registrada',
+  fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_compras_proveedor FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
+  CONSTRAINT fk_compras_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE IF NOT EXISTS detalle_compra (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  compra_id INT NOT NULL,
+  producto_id INT NOT NULL,
+  cantidad INT NOT NULL,
+  costo_unitario DECIMAL(10,2) NOT NULL,
+  subtotal DECIMAL(10,2) NOT NULL,
+  CONSTRAINT fk_detalle_compra FOREIGN KEY (compra_id) REFERENCES compras(id) ON DELETE CASCADE,
+  CONSTRAINT fk_detalle_compra_producto FOREIGN KEY (producto_id) REFERENCES productos(id)
+);
+
+CREATE TABLE IF NOT EXISTS cajas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_apertura_id INT NOT NULL,
+  usuario_cierre_id INT NULL,
+  monto_inicial DECIMAL(10,2) NOT NULL DEFAULT 0,
+  monto_final DECIMAL(10,2) NULL,
+  estado ENUM('abierta', 'cerrada') NOT NULL DEFAULT 'abierta',
+  abierta_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  cerrada_en TIMESTAMP NULL,
+  CONSTRAINT fk_cajas_apertura FOREIGN KEY (usuario_apertura_id) REFERENCES usuarios(id),
+  CONSTRAINT fk_cajas_cierre FOREIGN KEY (usuario_cierre_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE IF NOT EXISTS movimientos_caja (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  caja_id INT NOT NULL,
+  usuario_id INT NOT NULL,
+  tipo ENUM('ingreso', 'egreso', 'venta', 'compra', 'ajuste') NOT NULL,
+  concepto VARCHAR(200) NOT NULL,
+  monto DECIMAL(10,2) NOT NULL,
+  fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_movimientos_caja FOREIGN KEY (caja_id) REFERENCES cajas(id) ON DELETE CASCADE,
+  CONSTRAINT fk_movimientos_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
